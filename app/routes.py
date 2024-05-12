@@ -1,14 +1,14 @@
-from flask import request, jsonify
+from flask import request, jsonify, render_template
 from app import app, db
-from app.models import StockRequirement, StockOutward, StockInward
-from flask import request, jsonify
+from app.models import StockRequirement, StockOutward, StockInward, PaymentInward, PaymentOutward
 from flask_jwt_extended import create_access_token, jwt_required
 
 @app.route('/')
 def index():
     return "Welcome to the Inventory Management System!"
 
-@app.route('/add_str', methods=['POST'])
+# Endpoint for adding a new Stock Requirement
+@app.route('/add_str', methods=['GET', 'POST'])
 def add_str():
     if request.method == 'POST':
         data = request.json
@@ -29,6 +29,9 @@ def add_str():
         db.session.add(new_str)
         db.session.commit()
         return jsonify({'message': 'Stock Requirement added successfully'}), 201
+    else:
+        # Assuming you have a form class or you just want to return a template
+        return render_template('add_str_form.html')
 
 @app.route('/get_strs', methods=['GET'])
 def get_strs():
@@ -36,31 +39,40 @@ def get_strs():
     return jsonify([str.to_dict() for str in all_strs]), 200
 
 # Add Stock Outward
-@app.route('/add_sto', methods=['POST'])
+@app.route('/add_sto', methods=['GET', 'POST'])
 def add_sto():
-    data = request.json
-    new_sto = StockOutward(
-        required_for=data.get('required_for'),
-        sales_type=data.get('sales_type'),
-        invoice_number=data.get('invoice_number'),
-        sr_no=data.get('sr_no'),
-        issued_by=data.get('issued_by'),
-        party=data.get('party'),
-        vehicle_no=data.get('vehicle_no'),
-        material=data.get('material'),
-        rate=data.get('rate'),
-        quantity=data.get('quantity'),
-        gst=data.get('gst'),
-        total_amount=data.get('total_amount'),
-        mod_of_payment=data.get('mod_of_payment'),
-        amount_paid=data.get('amount_paid'),
-        balance=data.get('balance'),
-        driver_mobile=data.get('driver_mobile'),
-        owner_mobile=data.get('owner_mobile')
-    )
-    db.session.add(new_sto)
-    db.session.commit()
-    return jsonify({'message': 'Stock Outward added successfully'}), 201
+    if request.method == 'POST':
+        data = request.json
+        try:
+            new_sto = StockOutward(
+                required_for=data['required_for'],
+                sales_type=data['sales_type'],
+                invoice_number=data['invoice_number'],
+                sr_no=data.get('sr_no', ''),  # Optional field with default
+                issued_by=data['issued_by'],
+                party=data['party'],
+                vehicle_no=data['vehicle_no'],
+                material=data['material'],
+                rate=data['rate'],
+                quantity=data['quantity'],
+                gst=data['gst'],
+                total_amount=data['total_amount'],
+                mod_of_payment=data['mod_of_payment'],
+                amount_paid=data['amount_paid'],
+                balance=data['balance'],
+                driver_mobile=data['driver_mobile'],
+                owner_mobile=data['owner_mobile']
+            )
+            db.session.add(new_sto)
+            db.session.commit()
+            return jsonify({'message': 'Stock Outward added successfully'}), 201
+        except KeyError as e:
+            return jsonify({'error': f'Missing data for required field: {str(e)}'}), 400
+        except Exception as e:
+            return jsonify({'error': f'An error occurred: {str(e)}'}), 500
+    else:
+        # Assuming you have a form class or you just want to return a template
+        return render_template('add_sto_form.html')
 
 # Get all Stock Outwards
 @app.route('/get_stos', methods=['GET'])
@@ -71,47 +83,55 @@ def get_stos():
 # Add Stock Inward
 @app.route('/add_sti', methods=['POST'])
 def add_sti():
-    data = request.json
-    new_sti = StockInward(
-        sti_no=data.get('sti_no'),
-        date=data.get('date'),
-        shift=data.get('shift'),
-        incharge=data.get('incharge'),
-        referred_by=data.get('referred_by'),
-        required_for=data.get('required_for'),
-        purchase_type=data.get('purchase_type'),
-        invoice_number=data.get('invoice_number'),
-        sr_no=data.get('sr_no'),
-        received_by=data.get('received_by'),
-        purchase_party=data.get('purchase_party'),
-        vehicle_no=data.get('vehicle_no'),
-        material=data.get('material'),
-        rate=data.get('rate'),
-        mms_quantity=data.get('mms_quantity'),
-        mains_gross=data.get('mains_gross'),
-        mains_tare=data.get('mains_tare'),
-        mains_net_quantity=data.get('mains_net_quantity'),
-        gst=data.get('gst'),
-        total_amount=data.get('total_amount'),
-        mod_of_payment=data.get('mod_of_payment'),
-        amount_paid=data.get('amount_paid'),
-        balance=data.get('balance'),
-        driver_mobile=data.get('driver_mobile'),
-        driver_name=data.get('driver_name'),
-        loading_site=data.get('loading_site'),
-        unloading_site=data.get('unloading_site'),
-        trip_amount=data.get('trip_amount'),
-        beta_allowance=data.get('beta_allowance'),
-        total_d_amount=data.get('total_d_amount'),
-        d_mode_of_payment=data.get('d_mode_of_payment'),
-        d_amount_paid=data.get('d_amount_paid'),
-        d_balance=data.get('d_balance'),
-        owner_mobile=data.get('owner_mobile')
-    )
-    db.session.add(new_sti)
-    db.session.commit()
-    return jsonify({'message': 'Stock Inward added successfully'}), 201
-
+    if request.method == 'POST':
+        data = request.json
+        try:
+            new_sti = StockInward(
+                sti_no=data['sti_no'],
+                date=data['date'],
+                shift=data['shift'],
+                incharge=data['incharge'],
+                referred_by=data.get('referred_by', ''),  # Optional field with default
+                required_for=data['required_for'],
+                purchase_type=data['purchase_type'],
+                invoice_number=data['invoice_number'],
+                sr_no=data.get('sr_no', ''),  # Optional field
+                received_by=data['received_by'],
+                purchase_party=data['purchase_party'],
+                vehicle_no=data['vehicle_no'],
+                material=data['material'],
+                rate=data['rate'],
+                mms_quantity=data['mms_quantity'],
+                mains_gross=data['mains_gross'],
+                mains_tare=data['mains_tare'],
+                mains_net_quantity=data['mains_net_quantity'],
+                gst=data['gst'],
+                total_amount=data['total_amount'],
+                mod_of_payment=data['mod_of_payment'],
+                amount_paid=data['amount_paid'],
+                balance=data['balance'],
+                driver_mobile=data['driver_mobile'],
+                driver_name=data.get('driver_name', ''),  # Optional field
+                loading_site=data['loading_site'],
+                unloading_site=data['unloading_site'],
+                trip_amount=data['trip_amount'],
+                beta_allowance=data['beta_allowance'],
+                total_d_amount=data['total_d_amount'],
+                d_mode_of_payment=data['d_mode_of_payment'],
+                d_amount_paid=data['d_amount_paid'],
+                d_balance=data['d_balance'],
+                owner_mobile=data['owner_mobile']
+            )
+            db.session.add(new_sti)
+            db.session.commit()
+            return jsonify({'message': 'Stock Inward added successfully'}), 201
+        except KeyError as e:
+            return jsonify({'error': f'Missing data for required field: {str(e)}'}), 400
+        except Exception as e:
+            return jsonify({'error': f'An error occurred: {str(e)}'}), 500
+    else:
+        # Assuming you have a form class or you just want to return a template
+        return render_template('add_sti_form.html')
 
 # Get all Stock Inwards
 @app.route('/get_stis', methods=['GET'])
@@ -149,11 +169,34 @@ def get_payment_outwards():
 def login():
     username = request.json.get('username', None)
     password = request.json.get('password', None)
-    # Here, you should verify the username and password with your user model
-    access_token = create_access_token(identity=username)
-    return jsonify(access_token=access_token)
+    if not username or not password:
+        return jsonify({'error': 'Username and password are required'}), 400
+
+    # Here, add verification logic for username and password against stored credentials
+    user = User.query.filter_by(username=username).first()
+    if user and user.check_password(password):  # Assuming you have a password hash checker
+        access_token = create_access_token(identity=username)
+        return jsonify(access_token=access_token), 200
+    else:
+        return jsonify({'error': 'Invalid credentials'}), 401
 
 @app.route('/protected', methods=['GET'])
 @jwt_required()
 def protected():
     return jsonify({'message': 'JWT is working!'})
+
+@app.route('/dashboard')
+def dashboard():
+    # Example: Fetch some data from your models
+    total_stock_requirements = StockRequirement.query.count()
+    total_stock_outward = StockOutward.query.count()
+    total_stock_inward = StockInward.query.count()
+    recent_inward = StockInward.query.order_by(StockInward.date.desc()).limit(5).all()  # Last 5 records
+    recent_outward = StockOutward.query.order_by(StockOutward.date.desc()).limit(5).all()
+
+    return render_template('dashboard.html',
+                           total_stock_requirements=total_stock_requirements,
+                           total_stock_outward=total_stock_outward,
+                           total_stock_inward=total_stock_inward,
+                           recent_inward=recent_inward,
+                           recent_outward=recent_outward)

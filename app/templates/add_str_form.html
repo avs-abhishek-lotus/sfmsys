@@ -1,0 +1,51 @@
+<!-- templates/add_str_form.html -->
+{% extends 'base.html' %}
+
+{% block title %}Add Stock Requirement{% endblock %}
+
+{% block content %}
+    <h2>Add Stock Requirement</h2>
+    <form action="{{ url_for('add_str') }}" method="post">
+        <label for="str_no">Stock Requirement Number:</label>
+        <input type="text" id="str_no" name="str_no" required><br>
+
+        <label for="str_date">Date:</label>
+        <input type="date" id="str_date" name="str_date" required><br>
+
+        <label for="shift">Shift:</label>
+        <select id="shift" name="shift">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select><br>
+
+        <label for="incharge">Incharge:</label>
+        <input type="text" id="incharge" name="incharge" required><br>
+
+        <label for="req_raised_by">Requested By:</label>
+        <input type="text" id="req_raised_by" name="req_raised_by" required><br>
+
+        <label for="required_for">Required For:</label>
+        <input type="text" id="required_for" name="required_for" required><br>
+
+        <label for="material">Material:</label>
+        <input type="text" id="material" name="material" required><br>
+
+        <label for="material_quantity">Material Quantity:</label>
+        <input type="number" id="material_quantity" name="material_quantity" required><br>
+
+        <label for="amount_given">Amount Given:</label>
+        <input type="text" id="amount_given" name="amount_given" required><br>
+
+        <label for="vehicle_assigned">Vehicle Assigned:</label>
+        <input type="text" id="vehicle_assigned" name="vehicle_assigned" required><br>
+
+        <label for="vehicle_number">Vehicle Number:</label>
+        <input type="text" id="vehicle_number" name="vehicle_number" required><br>
+
+        <label for="driver_number">Driver Number:</label>
+        <input type="text" id="driver_number" name="driver_number" required><br>
+
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}

@@ -1,0 +1,18 @@
+<!-- templates/stock_requirement_form.html -->
+{% extends 'base.html' %}
+
+{% block title %}Add Stock Requirement{% endblock %}
+
+{% block content %}
+    <h2>Add Stock Requirement</h2>
+    <form method="post">
+        <!-- Assuming form fields are set up in forms.py and passed to template -->
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.str_no.label }}<br>
+            {{ form.str_no(size=32) }}
+        </p>
+        <!-- Add other fields similarly -->
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

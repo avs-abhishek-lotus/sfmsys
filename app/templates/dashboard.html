@@ -1,35 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-    <h1>Dashboard</h1>
-    <canvas id="salesChart"></canvas>
-    <script>
-        var ctx = document.getElementById('salesChart').getContext('2d');
-        var salesChart = new Chart(ctx, {
-            type: 'line',  // Change type to 'bar', 'line', etc.
-            data: {
-                labels: ['January', 'February', 'March'],  // Example labels
-                datasets: [{
-                    label: 'Sales by Month',
-                    data: [10, 20, 30],  // Example data
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    </script>
-</body>
-</html>
+<!-- templates/dashboard.html -->
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - Inventory Management System{% endblock %}
+
+{% block content %}
+<h2>Inventory Dashboard</h2>
+<div class="dashboard-container">
+    <div class="dashboard-item">
+        <h3>Total Stock Requirements</h3>
+        <p>{{ total_stock_requirements }}</p>
+    </div>
+    <div class="dashboard-item">
+        <h3>Total Stock Outward</h3>
+        <p>{{ total_stock_outward }}</p>
+    </div>
+    <div class="dashboard-item">
+        <h3>Total Stock Inward</h3>
+        <p>{{ total_stock_inward }}</p>
+    </div>
+    <div class="dashboard-item">
+        <h3>Recent Stock Inward</h3>
+        <ul>
+            {% for stock in recent_inward %}
+            <li>{{ stock.sti_no }} - {{ stock.material }} - {{ stock.mms_quantity }} units (on {{ stock.date }})</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="dashboard-item">
+        <h3>Recent Stock Outward</h3>
+        <ul>
+            {% for stock in recent_outward %}
+            <li>{{ stock.invoice_number }} - {{ stock.material }} - {{ stock.quantity }} units (on {{ stock.date }})</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<style>
+    .dashboard-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 20px;
+    }
+    .dashboard-item {
+        background-color: #f4f4f4;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    ul {
+        padding-left: 20px;
+    }
+    ul li {
+        margin-bottom: 5px;
+    }
+</style>
+{% endblock %}
