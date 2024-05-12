@@ -1,21 +1,60 @@
 <!-- templates/login.html -->
 {% extends 'base.html' %}
 
-{% block title %}Login{% endblock %}
+{% block title %}Login - Inventory Management System{% endblock %}
 
 {% block content %}
-    <h2>Login</h2>
-    <form action="{{ url_for('login') }}" method="post">
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <div>
-            <button type="submit">Login</button>
-        </div>
-    </form>
+<h2>Login to Your Account</h2>
+<form action="{{ url_for('login') }}" method="post" class="login-form">
+    <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+    </div>
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+    </div>
+    <div class="form-group">
+        <button type="submit">Login</button>
+    </div>
+</form>
+<style>
+    .login-form {
+        display: flex;
+        flex-direction: column;
+        max-width: 400px;
+        margin: auto;
+        gap: 15px;
+    }
+
+    .login-form .form-group {
+        display: block;
+    }
+
+    .login-form label {
+        margin-bottom: 5px;
+    }
+
+    .login-form input[type="text"],
+    .login-form input[type="password"],
+    .login-form button {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1rem;
+    }
+
+    .login-form button {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    .login-form button:hover {
+        background-color: #218838;
+    }
+</style>
 {% endblock %}

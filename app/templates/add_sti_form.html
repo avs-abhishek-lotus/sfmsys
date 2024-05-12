@@ -5,113 +5,183 @@
 
 {% block content %}
     <h2>Add Stock Inward</h2>
-    <form action="{{ url_for('add_sti') }}" method="post">
-        <label for="sti_no">STI Number:</label>
-        <input type="text" id="sti_no" name="sti_no" required><br>
+    <form action="{{ url_for('add_sti') }}" method="post" class="form-grid">
+        <div class="form-group">
+            <label for="sti_no">STI Number:</label>
+            <input type="text" id="sti_no" name="sti_no" required>
+        </div>
 
-        <label for="date">Date:</label>
-        <input type="date" id="date" name="date" required><br>
+        <div class="form-group">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+        </div>
 
-        <label for="shift">Shift:</label>
-        <select id="shift" name="shift">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-        </select><br>
+        <div class="form-group">
+            <label for="shift">Shift:</label>
+            <select id="shift" name="shift">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+        </div>
 
-        <label for="incharge">Incharge:</label>
-        <input type="text" id="incharge" name="incharge" required><br>
+        <div class="form-group">
+            <label for="incharge">Incharge:</label>
+            <input type="text" id="incharge" name="incharge" required>
+        </div>
 
-        <label for="referred_by">Referred By:</label>
-        <input type="text" id="referred_by" name="referred_by"><br> <!-- Optional -->
+        <div class="form-group">
+            <label for="referred_by">Referred By:</label>
+            <input type="text" id="referred_by" name="referred_by"> <!-- Optional -->
+        </div>
 
-        <label for="required_for">Required For:</label>
-        <input type="text" id="required_for" name="required_for" required><br>
+        <div class="form-group">
+            <label for="required_for">Required For:</label>
+            <input type="text" id="required_for" name="required_for" required>
+        </div>
 
-        <label for="purchase_type">Purchase Type:</label>
-        <input type="text" id="purchase_type" name="purchase_type" required><br>
+        <div class="form-group">
+            <label for="purchase_type">Purchase Type:</label>
+            <input type="text" id="purchase_type" name="purchase_type" required>
+        </div>
 
-        <label for="invoice_number">Invoice Number:</label>
-        <input type="text" id="invoice_number" name="invoice_number" required><br>
+        <div class="form-group">
+            <label for="invoice_number">Invoice Number:</label>
+            <input type="text" id="invoice_number" name="invoice_number" required>
+        </div>
 
-        <label for="sr_no">SR Number:</label>
-        <input type="text" id="sr_no" name="sr_no"><br> <!-- Optional -->
+        <div class="form-group">
+            <label for="sr_no">SR Number:</label>
+            <input type="text" id="sr_no" name="sr_no"> <!-- Optional -->
+        </div>
 
-        <label for="received_by">Received By:</label>
-        <input type="text" id="received_by" name="received_by" required><br>
+        <div class="form-group">
+            <label for="received_by">Received By:</label>
+            <input type="text" id="received_by" name="received_by" required>
+        </div>
 
-        <label for="purchase_party">Purchase Party:</label>
-        <input type="text" id="purchase_party" name="purchase_party" required><br>
+        <div class="form-group">
+            <label for="purchase_party">Purchase Party:</label>
+            <input type="text" id="purchase_party" name="purchase_party" required>
+        </div>
 
-        <label for="vehicle_no">Vehicle Number:</label>
-        <input type="text" id="vehicle_no" name="vehicle_no" required><br>
+        <div class="form-group">
+            <label for="vehicle_no">Vehicle Number:</label>
+            <input type="text" id="vehicle_no" name="vehicle_no" required>
+        </div>
 
-        <label for="material">Material:</label>
-        <input type="text" id="material" name="material" required><br>
+        <div class="form-group">
+            <label for="material">Material:</label>
+            <input type="text" id="material" name="material" required>
+        </div>
 
-        <label for="rate">Rate:</label>
-        <input type="number" id="rate" name="rate" step="0.01" required><br>
+        <div class="form-group">
+            <label for="rate">Rate:</label>
+            <input type="number" id="rate" name="rate" step="0.01" required>
+        </div>
 
-        <label for="mms_quantity">MMS Quantity:</label>
-        <input type="number" id="mms_quantity" name="mms_quantity" required><br>
+        <div class="form-group">
+            <label for="mms_quantity">MMS Quantity:</label>
+            <input type="number" id="mms_quantity" name="mms_quantity" required>
+        </div>
 
-        <label for="mains_gross">Mains Gross:</label>
-        <input type="number" id="mains_gross" name="mains_gross" step="0.01" required><br>
+        <div class="form-group">
+            <label for="mains_gross">Mains Gross:</label>
+            <input type="number" id="mains_gross" name="mains_gross" step="0.01" required>
+        </div>
 
-        <label for="mains_tare">Mains Tare:</label>
-        <input type="number" id="mains_tare" name="mains_tare" step="0.01" required><br>
+        <div class="form-group">
+            <label for="mains_tare">Mains Tare:</label>
+            <input type="number" id="mains_tare" name="mains_tare" step="0.01" required>
+        </div>
 
-        <label for="mains_net_quantity">Mains Net Quantity:</label>
-        <input type="number" id="mains_net_quantity" name="mains_net_quantity" step="0.01" required><br>
+        <div class="form-group">
+            <label for="mains_net_quantity">Mains Net Quantity:</label>
+            <input type="number" id="mains_net_quantity" name="mains_net_quantity" step="0.01" required>
+        </div>
 
-        <label for="gst">GST:</label>
-        <input type="number" id="gst" name="gst" step="0.01" required><br>
+        <div class="form-group">
+            <label for="gst">GST:</label>
+            <input type="number" id="gst" name="gst" step="0.01" required>
+        </div>
 
-        <label for="total_amount">Total Amount:</label>
-        <input type="number" id="total_amount" name="total_amount" step="0.01" required><br>
+        <div class="form-group">
+            <label for="total_amount">Total Amount:</label>
+            <input type="number" id="total_amount" name="total_amount" step="0.01" required>
+        </div>
 
-        <label for="mod_of_payment">Mode of Payment:</label>
-        <input type="text" id="mod_of_payment" name="mod_of_payment" required><br>
+        <div class="form-group">
+            <label for="mod_of_payment">Mode of Payment:</label>
+            <input type="text" id="mod_of_payment" name="mod_of_payment" required>
+        </div>
 
-        <label for="amount_paid">Amount Paid:</label>
-        <input type="number" id="amount_paid" name="amount_paid" step="0.01" required><br>
+        <div class="form-group">
+            <label for="amount_paid">Amount Paid:</label>
+            <input type="number" id="amount_paid" name="amount_paid" step="0.01" required>
+        </div>
 
-        <label for="balance">Balance:</label>
-        <input type="number" id="balance" name="balance" step="0.01" required><br>
+        <div class="form-group">
+            <label for="balance">Balance:</label>
+            <input type="number" id="balance" name="balance" step="0.01" required>
+        </div>
 
-        <label for="driver_mobile">Driver Mobile:</label>
-        <input type="text" id="driver_mobile" name="driver_mobile" required><br>
+        <div class="form-group">
+            <label for="driver_mobile">Driver Mobile:</label>
+            <input type="text" id="driver_mobile" name="driver_mobile" required>
+        </div>
 
-        <label for="driver_name">Driver Name:</label>
-        <input type="text" id="driver_name" name="driver_name"><br> <!-- Optional -->
+        <div class="form-group">
+            <label for="driver_name">Driver Name:</label>
+            <input type="text" id="driver_name" name="driver_name"> <!-- Optional -->
+        </div>
 
-        <label for="loading_site">Loading Site:</label>
-        <input type="text" id="loading_site" name="loading_site"><br> <!-- Optional -->
+        <div class="form-group">
+            <label for="loading_site">Loading Site:</label>
+            <input type="text" id="loading_site" name="loading_site"> <!-- Optional -->
+        </div>
 
-        <label for="unloading_site">Unloading Site:</label>
-        <input type="text" id="unloading_site" name="unloading_site"><br> <!-- Optional -->
+        <div class="form-group">
+            <label for="unloading_site">Unloading Site:</label>
+            <input type="text" id="unloading_site" name="unloading_site"> <!-- Optional -->
+        </div>
 
-        <label for="trip_amount">Trip Amount:</label>
-        <input type="number" id="trip_amount" name="trip_amount" step="0.01" required><br>
+        <div class="form-group">
+            <label for="trip_amount">Trip Amount:</label>
+            <input type="number" id="trip_amount" name="trip_amount" step="0.01" required>
+        </div>
 
-        <label for="beta_allowance">Beta & Allowance:</label>
-        <input type="number" id="beta_allowance" name="beta_allowance" step="0.01" required><br>
+        <div class="form-group">
+            <label for="beta_allowance">Beta & Allowance:</label>
+            <input type="number" id="beta_allowance" name="beta_allowance" step="0.01" required>
+        </div>
 
-        <label for="total_d_amount">Total D Amount:</label>
-        <input type="number" id="total_d_amount" name="total_d_amount" step="0.01" required><br>
+        <div class="form-group">
+            <label for="total_d_amount">Total D Amount:</label>
+            <input type="number" id="total_d_amount" name="total_d_amount" step="0.01" required>
+        </div>
 
-        <label for="d_mode_of_payment">D Mode of Payment:</label>
-        <input type="text" id="d_mode_of_payment" name="d_mode_of_payment" required><br>
+        <div class="form-group">
+            <label for="d_mode_of_payment">D Mode of Payment:</label>
+            <input type="text" id="d_mode_of_payment" name="d_mode_of_payment" required>
+        </div>
 
-        <label for="d_amount_paid">D Amount Paid:</label>
-        <input type="number" id="d_amount_paid" name="d_amount_paid" step="0.01" required><br>
+        <div class="form-group">
+            <label for="d_amount_paid">D Amount Paid:</label>
+            <input type="number" id="d_amount_paid" name="d_amount_paid" step="0.01" required>
+        </div>
 
-        <label for="d_balance">D Balance:</label>
-        <input type="number" id="d_balance" name="d_balance" step="0.01" required><br>
+        <div class="form-group">
+            <label for="d_balance">D Balance:</label>
+            <input type="number" id="d_balance" name="d_balance" step="0.01" required>
+        </div>
 
-        <label for="owner_mobile">Owner Mobile:</label>
-        <input type="text" id="owner_mobile" name="owner_mobile" required><br>
+        <div class="form-group">
+            <label for="owner_mobile">Owner Mobile:</label>
+            <input type="text" id="owner_mobile" name="owner_mobile" required>
+        </div>
 
-        <input type="submit" value="Submit">
+        <div class="form-group submit-group">
+            <input type="submit" value="Submit">
+        </div>
     </form>
 {% endblock %}

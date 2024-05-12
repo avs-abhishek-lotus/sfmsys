@@ -4,6 +4,25 @@
 {% block title %}Home - Inventory Management System{% endblock %}
 
 {% block content %}
-    <h2>Welcome to Your Inventory Management Dashboard</h2>
-    <!-- Dashboard content goes here -->
+<h2>Welcome to the Inventory Management System</h2>
+<p>This is the home page of your Inventory Management System. Navigate through the application using the links provided in the navigation bar to manage stock requirements, inwards, outwards, and view detailed analytics on the dashboard.</p>
+
+<div class="quick-links">
+    <h3>Quick Links</h3>
+    <ul>
+        <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+        <li><a href="{{ url_for('add_str') }}">Add Stock Requirement</a></li>
+        <li><a href="{{ url_for('add_sto') }}">Add Stock Outward</a></li>
+        <li><a href="{{ url_for('add_sti') }}">Add Stock Inward</a></li>
+    </ul>
+</div>
+
+<style>
+    .quick-links ul {
+        padding-left: 20px;
+    }
+    .quick-links ul li {
+        margin-bottom: 10px;
+    }
+</style>
 {% endblock %}

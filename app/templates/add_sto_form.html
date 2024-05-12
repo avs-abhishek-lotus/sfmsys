@@ -4,59 +4,95 @@
 {% block title %}Add Stock Outward{% endblock %}
 
 {% block content %}
-    <h2>Add Stock Outward</h2>
-    <form action="{{ url_for('add_sto') }}" method="post">
+<h2>Add Stock Outward</h2>
+<form action="{{ url_for('add_sto') }}" method="post" class="form-grid">
+    <div class="form-group">
         <label for="required_for">Required For:</label>
-        <input type="text" id="required_for" name="required_for" required><br>
+        <input type="text" id="required_for" name="required_for" required>
+    </div>
 
+    <div class="form-group">
         <label for="sales_type">Sales Type:</label>
-        <input type="text" id="sales_type" name="sales_type" required><br>
+        <input type="text" id="sales_type" name="sales_type" required>
+    </div>
 
+    <div class="form-group">
         <label for="invoice_number">Invoice Number:</label>
-        <input type="text" id="invoice_number" name="invoice_number" required><br>
+        <input type="text" id="invoice_number" name="invoice_number" required>
+    </div>
 
+    <div class="form-group">
         <label for="sr_no">SR Number:</label>
-        <input type="text" id="sr_no" name="sr_no"><br> <!-- Optional field -->
+        <input type="text" id="sr_no" name="sr_no"> <!-- Optional field -->
+    </div>
 
+    <div class="form-group">
         <label for="issued_by">Issued By:</label>
-        <input type="text" id="issued_by" name="issued_by" required><br>
+        <input type="text" id="issued_by" name="issued_by" required>
+    </div>
 
+    <div class="form-group">
         <label for="party">Party:</label>
-        <input type="text" id="party" name="party" required><br>
+        <input type="text" id="party" name="party" required>
+    </div>
 
+    <div class="form-group">
         <label for="vehicle_no">Vehicle Number:</label>
-        <input type="text" id="vehicle_no" name="vehicle_no" required><br>
+        <input type="text" id="vehicle_no" name="vehicle_no" required>
+    </div>
 
+    <div class="form-group">
         <label for="material">Material:</label>
-        <input type="text" id="material" name="material" required><br>
+        <input type="text" id="material" name="material" required>
+    </div>
 
+    <div class="form-group">
         <label for="rate">Rate:</label>
-        <input type="number" id="rate" name="rate" step="0.01" required><br>
+        <input type="number" id="rate" name="rate" step="0.01" required>
+    </div>
 
+    <div class="form-group">
         <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity" required><br>
+        <input type="number" id="quantity" name="quantity" required>
+    </div>
 
+    <div class="form-group">
         <label for="gst">GST:</label>
-        <input type="number" id="gst" name="gst" step="0.01" required><br>
+        <input type="number" id="gst" name="gst" step="0.01" required>
+    </div>
 
+    <div class="form-group">
         <label for="total_amount">Total Amount:</label>
-        <input type="number" id="total_amount" name="total_amount" step="0.01" required><br>
+        <input type="number" id="total_amount" name="total_amount" step="0.01" required>
+    </div>
 
+    <div class="form-group">
         <label for="mod_of_payment">Mode of Payment:</label>
-        <input type="text" id="mod_of_payment" name="mod_of_payment" required><br>
+        <input type="text" id="mod_of_payment" name="mod_of_payment" required>
+    </div>
 
+    <div class="form-group">
         <label for="amount_paid">Amount Paid:</label>
-        <input type="number" id="amount_paid" name="amount_paid" step="0.01" required><br>
+        <input type="number" id="amount_paid" name="amount_paid" step="0.01" required>
+    </div>
 
+    <div class="form-group">
         <label for="balance">Balance:</label>
-        <input type="number" id="balance" name="balance" step="0.01" required><br>
+        <input type="number" id="balance" name="balance" step="0.01" required>
+    </div>
 
+    <div class="form-group">
         <label for="driver_mobile">Driver Mobile:</label>
-        <input type="text" id="driver_mobile" name="driver_mobile" required><br>
+        <input type="text" id="driver_mobile" name="driver_mobile" required>
+    </div>
 
+    <div class="form-group">
         <label for="owner_mobile">Owner Mobile:</label>
-        <input type="text" id="owner_mobile" name="owner_mobile" required><br>
-
+        <input type="text" id="owner_mobile" name="owner_mobile" required>
+    </div>
+    <br>
+    <div class="form-group submit-group">
         <input type="submit" value="Submit">
-    </form>
+    </div>
+</form>
 {% endblock %}

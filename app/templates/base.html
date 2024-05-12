@@ -1,6 +1,6 @@
 <!-- templates/base.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100%;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </head>
-<body>
+<body style="display: flex; flex-direction: column; min-height: 100%; margin: 0;">
     <header>
         <h1>Inventory Management System</h1>
     </header>
@@ -20,11 +20,11 @@
         <a href="{{ url_for('add_sti') }}">Add Stock Inward</a>
         <a href="{{ url_for('login') }}">Login</a>
     </nav>
-    <main>
+    <main style="flex: 1;">
         {% block content %}
         {% endblock %}
     </main>
-    <footer>
+    <footer style="flex-shrink: 0;">
         <p>© 2024 Inventory Management System. All rights reserved.</p>
     </footer>
 </body>

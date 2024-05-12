@@ -1,11 +1,11 @@
-from flask import request, jsonify, render_template
+from flask import request, jsonify, render_template, flash
 from app import app, db
 from app.models import StockRequirement, StockOutward, StockInward, PaymentInward, PaymentOutward
 from flask_jwt_extended import create_access_token, jwt_required
 
 @app.route('/')
 def index():
-    return "Welcome to the Inventory Management System!"
+    return render_template('home.html')
 
 # Endpoint for adding a new Stock Requirement
 @app.route('/add_str', methods=['GET', 'POST'])
@@ -81,7 +81,7 @@ def get_stos():
     return jsonify([sto.to_dict() for sto in all_stos]), 200
 
 # Add Stock Inward
-@app.route('/add_sti', methods=['POST'])
+@app.route('/add_sti', methods=['GET', 'POST'])
 def add_sti():
     if request.method == 'POST':
         data = request.json
@@ -165,20 +165,25 @@ def get_payment_outwards():
     all_payments = PaymentOutward.query.all()
     return jsonify([payment.to_dict() for payment in all_payments]), 200
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    username = request.json.get('username', None)
-    password = request.json.get('password', None)
-    if not username or not password:
-        return jsonify({'error': 'Username and password are required'}), 400
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        
+        if not username or not password:
+            flash('Username and password are required', 'error')
+            return render_template('login.html')
 
-    # Here, add verification logic for username and password against stored credentials
-    user = User.query.filter_by(username=username).first()
-    if user and user.check_password(password):  # Assuming you have a password hash checker
-        access_token = create_access_token(identity=username)
-        return jsonify(access_token=access_token), 200
+        user = User.query.filter_by(username=username).first()
+        if user and user.check_password(password):  # Assuming you have a password check method
+            access_token = create_access_token(identity=username)
+            return jsonify(access_token=access_token), 200
+        else:
+            flash('Invalid credentials', 'error')
+            return render_template('login.html')
     else:
-        return jsonify({'error': 'Invalid credentials'}), 401
+        return render_template('login.html')
 
 @app.route('/protected', methods=['GET'])
 @jwt_required()
