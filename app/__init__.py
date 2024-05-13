@@ -11,6 +11,9 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 jwt = JWTManager(app)
 
+# with app.app_context():
+#     db.create_all()
+
 from app import routes, models  # Import routes and models at the end to avoid circular dependencies
 
 # Error handling

@@ -34,6 +34,7 @@ class StockOutwardForm(FlaskForm):
     balance = DecimalField('Balance', validators=[DataRequired()])
     driver_mobile = StringField('Driver Mobile', validators=[DataRequired(), Length(max=255)])
     owner_mobile = StringField('Owner Mobile', validators=[DataRequired(), Length(max=255)])
+    sto_date = DateField('Date', validators=[DataRequired()])
 
 class StockInwardForm(FlaskForm):
     sti_no = StringField('STI Number', validators=[DataRequired(), Length(max=255)])

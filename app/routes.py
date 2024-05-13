@@ -1,4 +1,4 @@
-from flask import request, jsonify, render_template, flash
+from flask import request, jsonify, render_template, flash, redirect
 from app import app, db
 from app.models import StockRequirement, StockOutward, StockInward, PaymentInward, PaymentOutward
 from flask_jwt_extended import create_access_token, jwt_required
@@ -11,7 +11,7 @@ def index():
 @app.route('/add_str', methods=['GET', 'POST'])
 def add_str():
     if request.method == 'POST':
-        data = request.json
+        data = request.json  # or request.form if data is coming from a form
         new_str = StockRequirement(
             str_no=data.get('str_no'),
             str_date=data.get('str_date'),
@@ -27,11 +27,14 @@ def add_str():
             driver_number=data.get('driver_number')
         )
         db.session.add(new_str)
-        db.session.commit()
-        return jsonify({'message': 'Stock Requirement added successfully'}), 201
-    else:
-        # Assuming you have a form class or you just want to return a template
-        return render_template('add_str_form.html')
+        try:
+            db.session.commit()
+            flash('Stock Requirement added successfully', 'success')
+        except Exception as e:
+            db.session.rollback()
+            flash('Error adding stock requirement: ' + str(e), 'error')
+        return redirect(url_for('dashboard'))
+    return render_template('add_str_form.html')
 
 @app.route('/get_strs', methods=['GET'])
 def get_strs():
@@ -61,7 +64,8 @@ def add_sto():
                 amount_paid=data['amount_paid'],
                 balance=data['balance'],
                 driver_mobile=data['driver_mobile'],
-                owner_mobile=data['owner_mobile']
+                owner_mobile=data['owner_mobile'],
+                sto_date=data.get('str_date')
             )
             db.session.add(new_sto)
             db.session.commit()
@@ -192,14 +196,13 @@ def protected():
 
 @app.route('/dashboard')
 def dashboard():
-    # Example: Fetch some data from your models
     total_stock_requirements = StockRequirement.query.count()
     total_stock_outward = StockOutward.query.count()
     total_stock_inward = StockInward.query.count()
-    recent_inward = StockInward.query.order_by(StockInward.date.desc()).limit(5).all()  # Last 5 records
+    recent_inward = StockInward.query.order_by(StockInward.date.desc()).limit(5).all()
     recent_outward = StockOutward.query.order_by(StockOutward.date.desc()).limit(5).all()
 
-    return render_template('dashboard.html',
+    return render_template('dashboard.html', 
                            total_stock_requirements=total_stock_requirements,
                            total_stock_outward=total_stock_outward,
                            total_stock_inward=total_stock_inward,

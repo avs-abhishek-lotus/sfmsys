@@ -57,6 +57,7 @@ class StockOutward(db.Model):
     balance = db.Column(db.Numeric(10, 2), nullable=False)
     driver_mobile = db.Column(db.String(255), nullable=False)
     owner_mobile = db.Column(db.String(255), nullable=False)
+    sto_date = db.Column(db.Date, nullable=False)
 
     def to_dict(self):
         return {
@@ -77,7 +78,8 @@ class StockOutward(db.Model):
             'amount_paid': float(self.amount_paid),
             'balance': float(self.balance),
             'driver_mobile': self.driver_mobile,
-            'owner_mobile': self.owner_mobile
+            'owner_mobile': self.owner_mobile,
+            'sto_date': self.sto_date.isoformat() if self.sto_date else None
         }
 
     def __repr__(self):
